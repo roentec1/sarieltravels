@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promociones | Admin Sariel</title>
+  <link rel="icon" type="image/jpeg" href="../assets/img/logo.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <img src="../assets/img/logo.jpg" alt="Logo">
+        <span>Sariel Admin</span>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="promociones.html" class="nav-item active"><i class="fas fa-tags"></i> Promociones</a>
+        <a href="destinos.html" class="nav-item"><i class="fas fa-map-marked-alt"></i> Destinos</a>
+        <a href="clientes.html" class="nav-item"><i class="fas fa-users"></i> Clientes / Leads</a>
+        <a href="testimonios.html" class="nav-item"><i class="fas fa-star"></i> Testimonios</a>
+        <a href="configuracion.html" class="nav-item"><i class="fas fa-cog"></i> Configuración</a>
+        <a href="../index.html" class="nav-item" target="_blank"><i class="fas fa-external-link-alt"></i> Ver sitio</a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="#" class="nav-item" id="btn-logout" style="margin:0"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="topbar">
+        <h1>Promociones</h1>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+          <span class="api-status" id="api-status"><i class="fas fa-circle" style="font-size:0.5rem"></i> Verificando...</span>
+          <button class="btn btn-primary" id="btn-nueva"><i class="fas fa-plus"></i> Nueva promoción</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body no-pad">
+          <div id="table-wrap"><div class="empty"><i class="fas fa-spinner fa-spin"></i> Cargando...</div></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modal-title">Nueva promoción</h3>
+        <button class="modal-close" id="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="form-promo">
+          <input type="hidden" id="promo-id">
+          <div class="form-group">
+            <label>Título *</label>
+            <input type="text" id="promo-titulo" required placeholder="Ej. Escapada Caribeña">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Destino *</label>
+              <input type="text" id="promo-destino" required>
+            </div>
+            <div class="form-group">
+              <label>Duración</label>
+              <input type="text" id="promo-duracion" placeholder="5 días / 4 noches">
+            </div>
+          </div>
+          <div class="form-row-3">
+            <div class="form-group">
+              <label>Precio (MXN) *</label>
+              <input type="number" id="promo-precio" required min="0">
+            </div>
+            <div class="form-group">
+              <label>Precio anterior</label>
+              <input type="number" id="promo-precio-ant" min="0">
+            </div>
+            <div class="form-group">
+              <label>Descuento %</label>
+              <input type="number" id="promo-descuento" min="0" max="100">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Fecha de salida</label>
+              <input type="date" id="promo-fecha">
+            </div>
+            <div class="form-group">
+              <label>Vigencia hasta</label>
+              <input type="date" id="promo-vigencia">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>URL de imagen</label>
+            <input type="url" id="promo-imagen" placeholder="https://...">
+          </div>
+          <div class="form-group">
+            <label>Descripción</label>
+            <textarea id="promo-desc" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Estado</label>
+            <select id="promo-estado">
+              <option value="activo">Activo</option>
+              <option value="inactivo">Inactivo</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;margin-top:8px;" id="btn-save">
+            <i class="fas fa-save"></i> Guardar en Google Sheets
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/js/api.js"></script>
+  <script>
+    if (!sessionStorage.getItem('sariel_admin')) location.href = 'index.html';
+    document.getElementById('btn-logout').onclick = e => { e.preventDefault(); sessionStorage.removeItem('sariel_admin'); location.href = 'index.html'; };
+
+    const KEY = 'sariel_promos';
+    let items = [];
+
+    function toast(msg, type) {
+      const t = document.createElement('div');
+      t.className = 'toast' + (type === 'error' ? ' error' : '');
+      t.innerHTML = '<i class="fas fa-' + (type === 'error' ? 'exclamation-circle' : 'check-circle') + '"></i> ' + msg;
+      document.body.appendChild(t);
+      setTimeout(() => t.classList.add('show'), 30);
+      setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3500);
+    }
+    function money(n) {
+      return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 0 }).format(n || 0);
+    }
+    function getLocal() { return JSON.parse(localStorage.getItem(KEY) || '[]'); }
+    function setLocal(a) { localStorage.setItem(KEY, JSON.stringify(a)); }
+
+    async function load() {
+      const status = document.getElementById('api-status');
+      if (API.isConfigured()) {
+        const res = await API.getPromotions('all');
+        if (res.success && Array.isArray(res.data) && res.data.length) {
+          items = res.data;
+          status.className = 'api-status ok';
+          status.innerHTML = '<i class="fas fa-circle" style="font-size:0.5rem"></i> Google Sheets';
+        } else {
+          items = getLocal().length ? getLocal() : FALLBACK.promociones.map(p => ({...p}));
+          status.innerHTML = '<i class="fas fa-circle" style="font-size:0.5rem"></i> Local (API sin datos)';
+        }
+      } else {
+        items = getLocal().length ? getLocal() : FALLBACK.promociones.map(p => ({...p}));
+        setLocal(items);
+        status.innerHTML = '<i class="fas fa-circle" style="font-size:0.5rem"></i> Local — configura API_URL';
+      }
+      render();
+    }
+
+    function render() {
+      const wrap = document.getElementById('table-wrap');
+      if (!items.length) {
+        wrap.innerHTML = '<div class="empty"><i class="fas fa-tags"></i>No hay promociones. Crea la primera.</div>';
+        return;
+      }
+      wrap.innerHTML = '<table><thead><tr><th></th><th>Título</th><th>Destino</th><th>Precio</th><th>Desc.</th><th>Estado</th><th>Acciones</th></tr></thead><tbody>' +
+        items.map(p => {
+          const id = p.ID || p.id;
+          return '<tr>' +
+            '<td>' + (p.Imagen || p.imagen ? '<img class="thumb" src="' + (p.Imagen || p.imagen) + '" alt="">' : '') + '</td>' +
+            '<td><strong>' + (p.Titulo || p.titulo || '') + '</strong></td>' +
+            '<td>' + (p.Destino || p.destino || '') + '</td>' +
+            '<td>' + money(p.Precio || p.precio) + '</td>' +
+            '<td>' + ((p.Descuento || p.descuento) ? '-' + (p.Descuento || p.descuento) + '%' : '—') + '</td>' +
+            '<td><span class="badge badge-' + (p.Estado || p.estado || 'activo') + '">' + (p.Estado || p.estado || 'activo') + '</span></td>' +
+            '<td class="actions">' +
+              '<button class="btn btn-sm btn-outline" onclick="editItem(\'' + id + '\')"><i class="fas fa-edit"></i></button>' +
+              '<button class="btn btn-sm btn-danger" onclick="deleteItem(\'' + id + '\')"><i class="fas fa-trash"></i></button>' +
+            '</td></tr>';
+        }).join('') + '</tbody></table>';
+    }
+
+    function openModal(item) {
+      document.getElementById('modal-title').textContent = item ? 'Editar promoción' : 'Nueva promoción';
+      document.getElementById('promo-id').value = item ? (item.ID || item.id || '') : '';
+      document.getElementById('promo-titulo').value = item ? (item.Titulo || item.titulo || '') : '';
+      document.getElementById('promo-destino').value = item ? (item.Destino || item.destino || '') : '';
+      document.getElementById('promo-duracion').value = item ? (item.Duracion || item.duracion || '') : '';
+      document.getElementById('promo-precio').value = item ? (item.Precio || item.precio || '') : '';
+      document.getElementById('promo-precio-ant').value = item ? (item.PrecioAnterior || item.precioAnterior || '') : '';
+      document.getElementById('promo-descuento').value = item ? (item.Descuento || item.descuento || '') : '';
+      document.getElementById('promo-fecha').value = item ? (item.FechaSalida || item.fechaSalida || '') : '';
+      document.getElementById('promo-vigencia').value = item ? (item.Vigencia || item.vigencia || '') : '';
+      document.getElementById('promo-imagen').value = item ? (item.Imagen || item.imagen || '') : '';
+      document.getElementById('promo-desc').value = item ? (item.Descripcion || item.descripcion || '') : '';
+      document.getElementById('promo-estado').value = item ? (item.Estado || item.estado || 'activo') : 'activo';
+      document.getElementById('modal').classList.add('active');
+    }
+
+    function closeModal() { document.getElementById('modal').classList.remove('active'); }
+
+    window.editItem = id => {
+      const item = items.find(p => (p.ID || p.id) == id);
+      if (item) openModal(item);
+    };
+
+    window.deleteItem = async id => {
+      if (!confirm('¿Eliminar esta promoción?')) return;
+      if (API.isConfigured()) await API.deletePromotion(id);
+      items = items.filter(p => (p.ID || p.id) != id);
+      setLocal(items);
+      render();
+      toast('Promoción eliminada');
+    };
+
+    document.getElementById('btn-nueva').onclick = () => openModal(null);
+    document.getElementById('modal-close').onclick = closeModal;
+    document.getElementById('modal').onclick = e => { if (e.target.id === 'modal') closeModal(); };
+
+    document.getElementById('form-promo').onsubmit = async e => {
+      e.preventDefault();
+      const btn = document.getElementById('btn-save');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
+
+      const data = {
+        id: document.getElementById('promo-id').value || undefined,
+        titulo: document.getElementById('promo-titulo').value,
+        destino: document.getElementById('promo-destino').value,
+        duracion: document.getElementById('promo-duracion').value,
+        precio: Number(document.getElementById('promo-precio').value),
+        precioAnterior: Number(document.getElementById('promo-precio-ant').value) || 0,
+        descuento: Number(document.getElementById('promo-descuento').value) || 0,
+        fechaSalida: document.getElementById('promo-fecha').value,
+        vigencia: document.getElementById('promo-vigencia').value,
+        imagen: document.getElementById('promo-imagen').value,
+        descripcion: document.getElementById('promo-desc').value,
+        estado: document.getElementById('promo-estado').value
+      };
+
+      if (API.isConfigured()) await API.savePromotion(data);
+
+      if (data.id) {
+        const idx = items.findIndex(p => (p.ID || p.id) == data.id);
+        if (idx >= 0) items[idx] = { ...items[idx], ID: data.id, Titulo: data.titulo, Destino: data.destino, Precio: data.precio, PrecioAnterior: data.precioAnterior, Descuento: data.descuento, FechaSalida: data.fechaSalida, Duracion: data.duracion, Descripcion: data.descripcion, Imagen: data.imagen, Vigencia: data.vigencia, Estado: data.estado };
+      } else {
+        items.push({ ID: Date.now().toString(36), Titulo: data.titulo, Destino: data.destino, Precio: data.precio, PrecioAnterior: data.precioAnterior, Descuento: data.descuento, FechaSalida: data.fechaSalida, Duracion: data.duracion, Descripcion: data.descripcion, Imagen: data.imagen, Vigencia: data.vigencia, Estado: data.estado });
+      }
+      setLocal(items);
+      render();
+      closeModal();
+      toast('Guardado. Se sincroniza con Google Sheets si la API está activa.');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-save"></i> Guardar en Google Sheets';
+    };
+
+    load();
+  </script>
+</body>
+</html>

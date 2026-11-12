@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clientes / Leads | Admin Sariel</title>
+  <link rel="icon" type="image/jpeg" href="../assets/img/logo.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --primary: #0077B6; --primary-dark: #023E8A; --dark: #1A1A2E;
+      --gray: #6C757D; --light: #F8F9FA; --success: #2A9D8F;
+      --danger: #E63946; --sidebar-width: 260px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #F0F4F8; color: var(--dark); }
+    .admin-layout { display: flex; min-height: 100vh; }
+    .sidebar { width: var(--sidebar-width); background: var(--dark); color: white; position: fixed; height: 100vh; z-index: 100; }
+    .sidebar-brand { padding: 24px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .sidebar-brand img { height: 42px; border-radius: 8px; }
+    .sidebar-brand span { font-family: 'Poppins', sans-serif; font-weight: 700; }
+    .sidebar-nav { padding: 16px 12px; }
+    .nav-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 10px; color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.9rem; font-weight: 500; margin-bottom: 4px; transition: all 0.2s; }
+    .nav-item:hover, .nav-item.active { background: rgba(0,119,182,0.3); color: white; }
+    .nav-item i { width: 20px; text-align: center; }
+    .sidebar-footer { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; border-top: 1px solid rgba(255,255,255,0.1); }
+    .main-content { margin-left: var(--sidebar-width); flex: 1; padding: 28px 32px; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+    .topbar h1 { font-family: 'Poppins', sans-serif; font-size: 1.5rem; color: var(--primary-dark); }
+    .card { background: white; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+    .card-header { padding: 18px 24px; border-bottom: 1px solid #EEE; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .card-body { padding: 0; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; min-width: 800px; }
+    th, td { padding: 12px 16px; text-align: left; font-size: 0.875rem; border-bottom: 1px solid #F0F0F0; }
+    th { font-weight: 600; color: var(--gray); font-size: 0.75rem; text-transform: uppercase; }
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+    .badge-nuevo { background: #DBEAFE; color: #1D4ED8; }
+    .badge-contactado { background: #FEF3C7; color: #B45309; }
+    .badge-enseguimiento { background: #E0E7FF; color: #4338CA; }
+    .badge-cotizado { background: #D1FAE5; color: #047857; }
+    .badge-reservado { background: #CFFAFE; color: #0E7490; }
+    .badge-cerrado { background: #E5E7EB; color: #374151; }
+    .badge-nointeresado { background: #FEE2E2; color: #B91C1C; }
+    select.estado-select { padding: 6px 10px; border-radius: 8px; border: 1px solid #DDD; font-size: 0.8rem; }
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 8px; font-weight: 600; font-size: 0.8rem; border: none; cursor: pointer; text-decoration: none; }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-sm { padding: 5px 10px; }
+    .empty { text-align: center; padding: 50px; color: var(--gray); }
+    .filters { display: flex; gap: 10px; flex-wrap: wrap; }
+    .filters select { padding: 8px 12px; border-radius: 8px; border: 1px solid #DDD; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <img src="../assets/img/logo.jpg" alt="Logo">
+        <span>Sariel Admin</span>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="promociones.html" class="nav-item"><i class="fas fa-tags"></i> Promociones</a>
+        <a href="destinos.html" class="nav-item"><i class="fas fa-map-marked-alt"></i> Destinos</a>
+        <a href="clientes.html" class="nav-item active"><i class="fas fa-users"></i> Clientes / Leads</a>
+        <a href="testimonios.html" class="nav-item"><i class="fas fa-star"></i> Testimonios</a>
+        <a href="configuracion.html" class="nav-item"><i class="fas fa-cog"></i> Configuración</a>
+        <a href="../index.html" class="nav-item" target="_blank"><i class="fas fa-external-link-alt"></i> Ver sitio</a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="#" class="nav-item" id="btn-logout" style="margin:0;"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="topbar">
+        <h1>Clientes / Solicitudes</h1>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="filters">
+            <select id="filter-estado">
+              <option value="">Todos los estados</option>
+              <option value="Nuevo">Nuevo</option>
+              <option value="Contactado">Contactado</option>
+              <option value="En seguimiento">En seguimiento</option>
+              <option value="Cotizado">Cotizado</option>
+              <option value="Reservado">Reservado</option>
+              <option value="Cerrado">Cerrado</option>
+              <option value="No interesado">No interesado</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" onclick="exportCSV()"><i class="fas fa-download"></i> Exportar</button>
+        </div>
+        <div class="card-body">
+          <div id="table-container">
+            <div class="empty">
+              <i class="fas fa-users" style="font-size:2rem;opacity:0.3;display:block;margin-bottom:12px;"></i>
+              No hay solicitudes todavía. Cuando alguien complete el formulario del sitio, aparecerá aquí.
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    if (!sessionStorage.getItem('sariel_admin')) window.location.href = 'index.html';
+    document.getElementById('btn-logout').onclick = (e) => { e.preventDefault(); sessionStorage.removeItem('sariel_admin'); location.href = 'index.html'; };
+
+    const ESTADOS = ['Nuevo', 'Contactado', 'En seguimiento', 'Cotizado', 'Reservado', 'Cerrado', 'No interesado'];
+
+    function loadLeads(filter = '') {
+      let leads = JSON.parse(localStorage.getItem('sariel_leads') || '[]');
+      if (filter) leads = leads.filter(l => l.estado === filter);
+      leads.reverse();
+
+      const container = document.getElementById('table-container');
+      if (!leads.length) {
+        container.innerHTML = '<div class="empty">No hay solicitudes con este filtro.</div>';
+        return;
+      }
+
+      container.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Nombre</th>
+              <th>Teléfono</th>
+              <th>WhatsApp</th>
+              <th>Destino / Promo</th>
+              <th>Viajeros</th>
+              <th>Tipo</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${leads.map((l, i) => `
+              <tr>
+                <td>${l.fecha ? new Date(l.fecha).toLocaleString('es-MX', {dateStyle:'short', timeStyle:'short'}) : '-'}</td>
+                <td><strong>${l.nombre || '-'}</strong><br><small style="color:#888">${l.correo || ''}</small></td>
+                <td>${l.telefono || '-'}</td>
+                <td>${l.whatsapp ? `<a href="https://wa.me/52${l.whatsapp.replace(/\D/g,'')}" target="_blank" style="color:#25D366"><i class="fab fa-whatsapp"></i></a> ${l.whatsapp}` : '-'}</td>
+                <td>${l.destino || ''} ${l.promocion ? '<br><small>'+l.promocion+'</small>' : ''}</td>
+                <td>${l.viajeros || '-'}</td>
+                <td>${l.tipoViaje || '-'}</td>
+                <td>
+                  <select class="estado-select" data-id="${l.id}" onchange="updateEstado(this)">
+                    ${ESTADOS.map(e => `<option value="${e}" ${l.estado===e?'selected':''}>${e}</option>`).join('')}
+                  </select>
+                </td>
+                <td>
+                  <button class="btn btn-sm" style="background:#EFF6FF;color:#1D4ED8;" onclick="verDetalle('${l.id}')" title="Ver mensaje"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+    }
+
+    function updateEstado(select) {
+      const id = select.dataset.id;
+      const leads = JSON.parse(localStorage.getItem('sariel_leads') || '[]');
+      const lead = leads.find(l => l.id === id);
+      if (lead) {
+        lead.estado = select.value;
+        localStorage.setItem('sariel_leads', JSON.stringify(leads));
+      }
+    }
+
+    function verDetalle(id) {
+      const leads = JSON.parse(localStorage.getItem('sariel_leads') || '[]');
+      const l = leads.find(x => x.id === id);
+      if (l) {
+        alert(`Mensaje de ${l.nombre}:\n\n${l.mensaje || '(sin mensaje)'}\n\nPresupuesto: ${l.presupuesto || '-'}\nFecha viaje: ${l.fechaViaje || '-'}`);
+      }
+    }
+
+    function exportCSV() {
+      const leads = JSON.parse(localStorage.getItem('sariel_leads') || '[]');
+      if (!leads.length) return alert('No hay datos para exportar');
+      const headers = ['Fecha','Nombre','Telefono','WhatsApp','Correo','Destino','Promocion','Viajeros','TipoViaje','Presupuesto','Mensaje','Estado'];
+      const rows = leads.map(l => [l.fecha,l.nombre,l.telefono,l.whatsapp,l.correo,l.destino,l.promocion,l.viajeros,l.tipoViaje,l.presupuesto,l.mensaje,l.estado].map(v => `"${(v||'').toString().replace(/"/g,'""')}"`).join(','));
+      const csv = [headers.join(','), ...rows].join('\n');
+      const blob = new Blob([csv], {type:'text/csv'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'leads-sariel-' + new Date().toISOString().slice(0,10) + '.csv';
+      a.click();
+    }
+
+    document.getElementById('filter-estado').addEventListener('change', (e) => loadLeads(e.target.value));
+    loadLeads();
+  </script>
+</body>
+</html>

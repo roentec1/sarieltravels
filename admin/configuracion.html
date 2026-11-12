@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configuración | Admin Sariel</title>
+  <link rel="icon" type="image/jpeg" href="../assets/img/logo.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand"><img src="../assets/img/logo.jpg" alt="Logo"><span>Sariel Admin</span></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="promociones.html" class="nav-item"><i class="fas fa-tags"></i> Promociones</a>
+        <a href="destinos.html" class="nav-item"><i class="fas fa-map-marked-alt"></i> Destinos</a>
+        <a href="clientes.html" class="nav-item"><i class="fas fa-users"></i> Clientes / Leads</a>
+        <a href="testimonios.html" class="nav-item"><i class="fas fa-star"></i> Testimonios</a>
+        <a href="configuracion.html" class="nav-item active"><i class="fas fa-cog"></i> Configuración</a>
+        <a href="../index.html" class="nav-item" target="_blank"><i class="fas fa-external-link-alt"></i> Ver sitio</a>
+      </nav>
+      <div class="sidebar-footer"><a href="#" class="nav-item" id="btn-logout" style="margin:0"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></div>
+    </aside>
+    <main class="main-content">
+      <div class="topbar"><h1>Configuración</h1></div>
+      <div class="card">
+        <div class="card-header"><h2>Conexión con Google Sheets</h2></div>
+        <div class="card-body">
+          <p style="margin-bottom:16px;line-height:1.6;">Para que <strong>todo</strong> se administre desde Google Sheets:</p>
+          <ol style="margin-left:20px;line-height:1.9;color:var(--gray);">
+            <li>Crea un Spreadsheet con las hojas: CLIENTES, PROMOCIONES, DESTINOS, TESTIMONIOS, USUARIOS, CONFIGURACION</li>
+            <li>Pega el código de <code>google-apps-script/Code.gs</code> en Apps Script</li>
+            <li>Pon el ID del Spreadsheet en <code>SPREADSHEET_ID</code></li>
+            <li>Despliega como aplicación web (acceso: Cualquiera)</li>
+            <li>Copia la URL <code>.../exec</code> y pégala en <code>assets/js/api.js</code> → propiedad <code>URL</code></li>
+          </ol>
+          <p style="margin-top:20px;"><strong>Datos de la agencia</strong> (también en la hoja CONFIGURACION):</p>
+          <ul style="margin:12px 0 0 20px;line-height:1.8;">
+            <li>Nombre: Viajes Sariel Travels</li>
+            <li>Teléfono / WhatsApp: +52 1 81 1534 0059</li>
+            <li>Ubicación: Apodaca, Nuevo León, México C.P. 66646</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><h2>Usuario administrador</h2></div>
+        <div class="card-body">
+          <p>Por defecto en la hoja USUARIOS: <code>admin</code> / <code>sariel2026</code></p>
+          <p style="margin-top:8px;color:var(--gray);">Cámbialo en Google Sheets después de conectar la API.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script>
+    if (!sessionStorage.getItem('sariel_admin')) location.href = 'index.html';
+    document.getElementById('btn-logout').onclick = e => { e.preventDefault(); sessionStorage.removeItem('sariel_admin'); location.href = 'index.html'; };
+  </script>
+</body>
+</html>

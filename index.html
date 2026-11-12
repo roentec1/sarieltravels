@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viajes Sariel Travels | Vive nuevas experiencias</title>
+  <meta name="description" content="Viajes Sariel Travels te ayuda a encontrar destinos, promociones y experiencias de viaje nacionales e internacionales. Planea tus próximas vacaciones con atención personalizada.">
+  <meta name="keywords" content="viajes, turismo, vacaciones, Cancún, Riviera Maya, Los Cabos, paquetes vacacionales, viajes familiares, Apodaca, Nuevo León">
+  <meta name="author" content="Viajes Sariel Travels">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Viajes Sariel Travels | Vive nuevas experiencias">
+  <meta property="og:description" content="Encontramos el viaje ideal para ti. Destinos nacionales e internacionales con atención personalizada.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="assets/img/logo.jpg">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Estilos -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+  
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TravelAgency",
+    "name": "Viajes Sariel Travels",
+    "description": "Agencia de viajes en Apodaca, Nuevo León. Paquetes nacionales e internacionales con atención personalizada.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Apodaca",
+      "addressRegion": "Nuevo León",
+      "postalCode": "66646",
+      "addressCountry": "MX"
+    },
+    "telephone": "+52-1-81-1534-0059",
+    "url": ""
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ========== HEADER ========== -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="index.html" class="logo">
+          <img src="assets/img/logo.jpg" alt="Viajes Sariel Travels">
+          <div class="logo-text">
+            Sariel Travels
+            <span>Creamos viajes reales</span>
+          </div>
+        </a>
+        
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="#inicio" class="nav-link active">Inicio</a></li>
+          <li><a href="destinos.html" class="nav-link">Destinos</a></li>
+          <li><a href="promociones.html" class="nav-link">Promociones</a></li>
+          <li><a href="servicios.html" class="nav-link">Servicios</a></li>
+          <li><a href="nosotros.html" class="nav-link">Nosotros</a></li>
+          <li><a href="#testimonios" class="nav-link">Testimonios</a></li>
+          <li><a href="contacto.html" class="nav-link">Contacto</a></li>
+          <li class="nav-mobile-actions">
+            <a href="#" class="nav-whatsapp" data-whatsapp>
+              <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+            <a href="admin/index.html" class="btn-login">
+              <i class="fas fa-user"></i> Iniciar sesión
+            </a>
+          </li>
+        </ul>
+        
+        <div class="nav-actions">
+          <a href="#" class="nav-whatsapp" data-whatsapp>
+            <i class="fab fa-whatsapp"></i> WhatsApp
+          </a>
+          <a href="admin/index.html" class="btn-login">
+            <i class="fas fa-user"></i> Iniciar sesión
+          </a>
+        </div>
+        
+        <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========== HERO SLIDER ========== -->
+  <section class="hero" id="inicio">
+    <div class="hero-slider">
+      <!-- Slide 1 -->
+      <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&h=1080&fit=crop');">
+        <div class="container hero-content">
+          <div class="hero-text">
+            <span class="hero-badge"><i class="fas fa-plane"></i> Viajes Sariel Travels</span>
+            <h1 class="hero-title">Tu próxima aventura comienza aquí</h1>
+            <p class="hero-subtitle">Viaja, descubre y crea recuerdos inolvidables con la atención personalizada que mereces.</p>
+            <div class="hero-buttons">
+              <a href="#destinos" class="btn btn-primary btn-lg">
+                <i class="fas fa-map-marked-alt"></i> Conoce nuestros destinos
+              </a>
+              <a href="#contacto" class="btn btn-outline-white btn-lg">
+                Solicita información
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Slide 2 -->
+      <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1920&h=1080&fit=crop');">
+        <div class="container hero-content">
+          <div class="hero-text">
+            <span class="hero-badge"><i class="fas fa-umbrella-beach"></i> Playas del Caribe</span>
+            <h1 class="hero-title">Encontramos el viaje ideal para ti</h1>
+            <p class="hero-subtitle">Planeamos tus vacaciones, tú disfruta la experiencia. Paquetes familiares, luna de miel y más.</p>
+            <div class="hero-buttons">
+              <a href="#promociones" class="btn btn-accent btn-lg">
+                <i class="fas fa-tags"></i> Ver promociones
+              </a>
+              <a href="#" class="btn btn-outline-white btn-lg" data-whatsapp>
+                <i class="fab fa-whatsapp"></i> Contactar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Slide 3 -->
+      <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1920&h=1080&fit=crop');">
+        <div class="container hero-content">
+          <div class="hero-text">
+            <span class="hero-badge"><i class="fas fa-globe-americas"></i> Destinos nacionales e internacionales</span>
+            <h1 class="hero-title">Creamos viajes reales</h1>
+            <p class="hero-subtitle">Desde Cancún hasta Europa. Atención personalizada desde Apodaca, Nuevo León.</p>
+            <div class="hero-buttons">
+              <a href="#destinos" class="btn btn-primary btn-lg">Descubrir destinos</a>
+              <a href="#contacto" class="btn btn-outline-white btn-lg">Cotizar mi viaje</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="hero-arrows">
+      <button class="hero-arrow prev" aria-label="Anterior"><i class="fas fa-chevron-left"></i></button>
+      <button class="hero-arrow next" aria-label="Siguiente"><i class="fas fa-chevron-right"></i></button>
+    </div>
+    
+    <div class="hero-nav">
+      <button class="hero-dot active" aria-label="Slide 1"></button>
+      <button class="hero-dot" aria-label="Slide 2"></button>
+      <button class="hero-dot" aria-label="Slide 3"></button>
+    </div>
+  </section>
+
+  <!-- ========== DESTINOS ========== -->
+  <section class="section" id="destinos">
+    <div class="container">
+      <h2 class="section-title fade-in">🌎 Destinos</h2>
+      <p class="section-subtitle fade-in">Explora los destinos más solicitados. Paquetes diseñados para familias, parejas y aventureros.</p>
+      
+      <div class="destinos-grid" id="destinos-grid">
+        <!-- Se llena dinámicamente con JS -->
+      </div>
+      
+      <div class="text-center" style="margin-top: 40px;">
+        <a href="destinos.html" class="btn btn-secondary">Ver todos los destinos</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROMOCIONES ========== -->
+  <section class="section bg-light" id="promociones">
+    <div class="container">
+      <h2 class="section-title fade-in">🔥 Promociones</h2>
+      <p class="section-subtitle fade-in">Ofertas exclusivas por tiempo limitado. ¡No dejes pasar estas oportunidades!</p>
+      
+      <div class="promos-grid" id="promos-grid">
+        <!-- Se llena dinámicamente -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== POR QUÉ ELEGIRNOS ========== -->
+  <section class="section" id="nosotros">
+    <div class="container">
+      <h2 class="section-title fade-in">¿Por qué elegir Viajes Sariel Travels?</h2>
+      <p class="section-subtitle fade-in">Más que una agencia: tu compañero de confianza para crear experiencias inolvidables.</p>
+      
+      <div class="why-grid">
+        <div class="why-card fade-in">
+          <div class="why-icon"><i class="fas fa-headset"></i></div>
+          <h3 class="why-title">Atención personalizada</h3>
+          <p class="why-text">Te acompañamos en cada paso, desde la idea hasta el regreso a casa.</p>
+        </div>
+        <div class="why-card fade-in">
+          <div class="why-icon"><i class="fas fa-hotel"></i></div>
+          <h3 class="why-title">Hoteles seleccionados</h3>
+          <p class="why-text">Solo trabajamos con propiedades de calidad verificada y reseñas excelentes.</p>
+        </div>
+        <div class="why-card fade-in">
+          <div class="why-icon"><i class="fas fa-globe"></i></div>
+          <h3 class="why-title">Amplia variedad de destinos</h3>
+          <p class="why-text">Nacionales e internacionales. Desde playas hasta grandes ciudades.</p>
+        </div>
+        <div class="why-card fade-in">
+          <div class="why-icon"><i class="fas fa-credit-card"></i></div>
+          <h3 class="why-title">Opciones de pago</h3>
+          <p class="why-text">Facilidades y planes que se adaptan a tu presupuesto.</p>
+        </div>
+        <div class="why-card fade-in">
+          <div class="why-icon"><i class="fas fa-users"></i></div>
+          <h3 class="why-title">Viajes familiares</h3>
+          <p class="why-text">Especialistas en vacaciones para toda la familia, con niños y sin preocupaciones.</p>
+        </div>
+        <div class="why-card fade-in">
+          <div class="why-icon"><i class="fas fa-shield-alt"></i></div>
+          <h3 class="why-title">Seguridad y confianza</h3>
+          <p class="why-text">Transparencia total en precios, condiciones y soporte durante tu viaje.</p>
+        </div>
+        <div class="why-card fade-in">
+          <div class="why-icon"><i class="fas fa-comments"></i></div>
+          <h3 class="why-title">Asesoría personalizada</h3>
+          <p class="why-text">Te ayudamos a elegir el destino y el paquete que mejor se ajusta a ti.</p>
+        </div>
+        <div class="why-card fade-in">
+          <div class="why-icon"><i class="fas fa-star"></i></div>
+          <h3 class="why-title">Experiencias inolvidables</h3>
+          <p class="why-text">No solo vendemos viajes: creamos momentos que recordarás para siempre.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SERVICIOS ========== -->
+  <section class="section bg-light" id="servicios">
+    <div class="container">
+      <h2 class="section-title fade-in">Nuestros Servicios</h2>
+      <p class="section-subtitle fade-in">Todo lo que necesitas para tu próximo viaje, en un solo lugar.</p>
+      
+      <div class="servicios-grid">
+        <div class="servicio-card fade-in">
+          <div class="servicio-icon"><i class="fas fa-hotel"></i></div>
+          <div class="servicio-name">Reservación de hoteles</div>
+        </div>
+        <div class="servicio-card fade-in">
+          <div class="servicio-icon"><i class="fas fa-suitcase-rolling"></i></div>
+          <div class="servicio-name">Paquetes vacacionales</div>
+        </div>
+        <div class="servicio-card fade-in">
+          <div class="servicio-icon"><i class="fas fa-plane"></i></div>
+          <div class="servicio-name">Vuelos</div>
+        </div>
+        <div class="servicio-card fade-in">
+          <div class="servicio-icon"><i class="fas fa-map"></i></div>
+          <div class="servicio-name">Viajes nacionales</div>
+        </div>
+        <div class="servicio-card fade-in">
+          <div class="servicio-icon"><i class="fas fa-globe-americas"></i></div>
+          <div class="servicio-name">Viajes internacionales</div>
+        </div>
+        <div class="servicio-card fade-in">
+          <div class="servicio-icon"><i class="fas fa-ship"></i></div>
+          <div class="servicio-name">Cruceros</div>
+        </div>
+        <div class="servicio-card fade-in">
+          <div class="servicio-icon"><i class="fas fa-route"></i></div>
+          <div class="servicio-name">Tours</div>
+        </div>
+        <div class="servicio-card fade-in">
+          <div class="servicio-icon"><i class="fas fa-shuttle-van"></i></div>
+          <div class="servicio-name">Traslados</div>
+        </div>
+        <div class="servicio-card fade-in">
+          <div class="servicio-icon"><i class="fas fa-child"></i></div>
+          <div class="servicio-name">Viajes familiares</div>
+        </div>
+        <div class="servicio-card fade-in">
+          <div class="servicio-icon"><i class="fas fa-heart"></i></div>
+          <div class="servicio-name">Viajes en pareja</div>
+        </div>
+        <div class="servicio-card fade-in">
+          <div class="servicio-icon"><i class="fas fa-ring"></i></div>
+          <div class="servicio-name">Luna de miel</div>
+        </div>
+        <div class="servicio-card fade-in">
+          <div class="servicio-icon"><i class="fas fa-users"></i></div>
+          <div class="servicio-name">Grupos y empresariales</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TESTIMONIOS ========== -->
+  <section class="section" id="testimonios">
+    <div class="container">
+      <h2 class="section-title fade-in">✨ Lo que dicen nuestros clientes</h2>
+      <p class="section-subtitle fade-in">La mejor publicidad es la experiencia de quienes ya viajaron con nosotros.</p>
+      
+      <div class="testimonios-slider">
+        <div class="testimonios-track" id="testimonios-track" style="overflow-x: auto; padding-bottom: 10px;">
+          <!-- Se llena con JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== GALERÍA ========== -->
+  <section class="section bg-light" id="galeria">
+    <div class="container">
+      <h2 class="section-title fade-in">📸 Inspírate para tu próximo viaje</h2>
+      <p class="section-subtitle fade-in">Imágenes que hablan por sí solas. Destinos, momentos y paisajes que te esperan.</p>
+      
+      <div class="galeria-grid">
+        <div class="galeria-item">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=600&fit=crop" alt="Playa paradisíaca" loading="lazy">
+          <div class="galeria-overlay">Playas del Caribe</div>
+        </div>
+        <div class="galeria-item">
+          <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop" alt="Resort de lujo" loading="lazy">
+          <div class="galeria-overlay">Resorts</div>
+        </div>
+        <div class="galeria-item">
+          <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400&h=300&fit=crop" alt="Familia viajando" loading="lazy">
+          <div class="galeria-overlay">Familia</div>
+        </div>
+        <div class="galeria-item">
+          <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=400&h=300&fit=crop" alt="Carretera de aventura" loading="lazy">
+          <div class="galeria-overlay">Aventura</div>
+        </div>
+        <div class="galeria-item">
+          <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=400&h=300&fit=crop" alt="Nueva York" loading="lazy">
+          <div class="galeria-overlay">Ciudades</div>
+        </div>
+        <div class="galeria-item">
+          <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=400&fit=crop" alt="Atardecer en Los Cabos" loading="lazy">
+          <div class="galeria-overlay">Los Cabos</div>
+        </div>
+        <div class="galeria-item">
+          <img src="https://images.unsplash.com/photo-1518638150340-f706e86654de?w=400&h=300&fit=crop" alt="Riviera Maya" loading="lazy">
+          <div class="galeria-overlay">Riviera Maya</div>
+        </div>
+        <div class="galeria-item">
+          <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&h=300&fit=crop" alt="Avión" loading="lazy">
+          <div class="galeria-overlay">Vuelos</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACTO ========== -->
+  <section class="section" id="contacto">
+    <div class="container">
+      <h2 class="section-title fade-in">📍 Contacta con nosotros</h2>
+      <p class="section-subtitle fade-in">Estamos listos para ayudarte a planear tu próximo viaje. Escríbenos o llámanos.</p>
+      
+      <div class="contacto-wrapper">
+        <div class="contacto-info fade-in">
+          <h3>Viajes Sariel Travels</h3>
+          
+          <div class="contacto-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <h4>Ubicación</h4>
+              <p>Apodaca, Nuevo León, México<br>C.P. 66646</p>
+            </div>
+          </div>
+          
+          <div class="contacto-item">
+            <i class="fas fa-phone-alt"></i>
+            <div>
+              <h4>Teléfono</h4>
+              <p><a href="tel:+5218115340059">+52 1 81 1534 0059</a></p>
+            </div>
+          </div>
+          
+          <div class="contacto-item">
+            <i class="fab fa-whatsapp"></i>
+            <div>
+              <h4>WhatsApp</h4>
+              <p><a href="#" data-whatsapp>+52 1 81 1534 0059</a></p>
+            </div>
+          </div>
+          
+          <div class="contacto-item">
+            <i class="fas fa-clock"></i>
+            <div>
+              <h4>Horario de atención</h4>
+              <p>Lunes a Viernes: 9:00 – 19:00<br>Sábados: 10:00 – 14:00</p>
+            </div>
+          </div>
+          
+          <div style="margin-top: 28px;">
+            <a href="#" class="btn btn-whatsapp" data-whatsapp>
+              <i class="fab fa-whatsapp"></i> Escribir por WhatsApp
+            </a>
+          </div>
+          
+          <div class="footer-social" style="margin-top: 24px;">
+            <a href="#" title="Facebook" aria-label="Facebook" id="facebook-link">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <!-- Instagram y TikTok se pueden agregar desde el panel cuando se proporcionen -->
+          </div>
+        </div>
+        
+        <div class="contacto-form fade-in">
+          <h3 style="font-family: var(--font-heading); margin-bottom: 20px; color: var(--primary-dark);">
+            Solicita información
+          </h3>
+          <form id="form-contacto">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="nombre">Nombre completo *</label>
+                <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+              </div>
+              <div class="form-group">
+                <label for="telefono">Teléfono *</label>
+                <input type="tel" id="telefono" name="telefono" required placeholder="81 1234 5678">
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="whatsapp">WhatsApp</label>
+                <input type="tel" id="whatsapp" name="whatsapp" placeholder="Opcional">
+              </div>
+              <div class="form-group">
+                <label for="correo">Correo electrónico</label>
+                <input type="email" id="correo" name="correo" placeholder="tu@email.com">
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="destino">Destino de interés</label>
+                <input type="text" id="destino" name="destino" placeholder="Ej. Cancún, Orlando...">
+              </div>
+              <div class="form-group">
+                <label for="viajeros">Número de viajeros</label>
+                <input type="number" id="viajeros" name="viajeros" min="1" placeholder="2">
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fechaViaje">Fecha aproximada del viaje</label>
+                <input type="month" id="fechaViaje" name="fechaViaje">
+              </div>
+              <div class="form-group">
+                <label for="tipoViaje">Tipo de viaje</label>
+                <select id="tipoViaje" name="tipoViaje">
+                  <option value="">Selecciona...</option>
+                  <option value="Vacaciones familiares">Vacaciones familiares</option>
+                  <option value="Luna de miel">Luna de miel</option>
+                  <option value="Viaje en pareja">Viaje en pareja</option>
+                  <option value="Viaje de amigos">Viaje de amigos</option>
+                  <option value="Crucero">Crucero</option>
+                  <option value="Viaje internacional">Viaje internacional</option>
+                  <option value="Viaje nacional">Viaje nacional</option>
+                  <option value="Otro">Otro</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="presupuesto">Presupuesto aproximado (MXN)</label>
+              <input type="text" id="presupuesto" name="presupuesto" placeholder="Ej. 15,000 - 25,000">
+            </div>
+            
+            <div class="form-group">
+              <label for="mensaje">Mensaje</label>
+              <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos más sobre el viaje que buscas..."></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              <i class="fas fa-paper-plane"></i> SOLICITAR INFORMACIÓN
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/img/logo.jpg" alt="Viajes Sariel Travels">
+          <p>Creamos viajes reales. Atención personalizada para que vivas experiencias inolvidables en destinos nacionales e internacionales.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" data-whatsapp aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-title">Enlaces</h4>
+          <div class="footer-links">
+            <a href="#inicio">Inicio</a>
+            <a href="#destinos">Destinos</a>
+            <a href="#promociones">Promociones</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#nosotros">Nosotros</a>
+            <a href="#contacto">Contacto</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-title">Legal</h4>
+          <div class="footer-links">
+            <a href="#">Aviso de privacidad</a>
+            <a href="#">Términos y condiciones</a>
+          </div>
+        </div>
+        
+        <div class="footer-contact">
+          <h4 class="footer-title">Contacto</h4>
+          <p><i class="fas fa-map-marker-alt"></i> Apodaca, Nuevo León, México</p>
+          <p><i class="fas fa-phone"></i> +52 1 81 1534 0059</p>
+          <p><i class="fab fa-whatsapp"></i> +52 1 81 1534 0059</p>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>© 2026 Viajes Sariel Travels. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp flotante -->
+  <a href="#" class="whatsapp-float" data-whatsapp aria-label="Contactar por WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Modal de solicitud -->
+  <div class="modal-overlay" id="modal-solicitud">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Solicitar información</h3>
+        <button class="modal-close" aria-label="Cerrar">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="form-modal">
+          <input type="hidden" name="promocion" value="">
+          <input type="hidden" name="destino" value="">
+          
+          <div class="form-group">
+            <label>Nombre completo *</label>
+            <input type="text" name="nombre" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Teléfono *</label>
+              <input type="tel" name="telefono" required>
+            </div>
+            <div class="form-group">
+              <label>WhatsApp</label>
+              <input type="tel" name="whatsapp">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Correo electrónico</label>
+            <input type="email" name="correo">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Número de viajeros</label>
+              <input type="number" name="viajeros" min="1" value="2">
+            </div>
+            <div class="form-group">
+              <label>Tipo de viaje</label>
+              <select name="tipoViaje">
+                <option value="Vacaciones familiares">Vacaciones familiares</option>
+                <option value="Luna de miel">Luna de miel</option>
+                <option value="Viaje en pareja">Viaje en pareja</option>
+                <option value="Viaje de amigos">Viaje de amigos</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Mensaje</label>
+            <textarea name="mensaje" rows="3" placeholder="¿Qué más nos quieres contar?"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">
+            <i class="fas fa-paper-plane"></i> Enviar solicitud
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

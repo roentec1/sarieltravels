@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Destinos | Admin Sariel</title>
+  <link rel="icon" type="image/jpeg" href="../assets/img/logo.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <img src="../assets/img/logo.jpg" alt="Logo">
+        <span>Sariel Admin</span>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="promociones.html" class="nav-item"><i class="fas fa-tags"></i> Promociones</a>
+        <a href="destinos.html" class="nav-item active"><i class="fas fa-map-marked-alt"></i> Destinos</a>
+        <a href="clientes.html" class="nav-item"><i class="fas fa-users"></i> Clientes / Leads</a>
+        <a href="testimonios.html" class="nav-item"><i class="fas fa-star"></i> Testimonios</a>
+        <a href="configuracion.html" class="nav-item"><i class="fas fa-cog"></i> Configuración</a>
+        <a href="../index.html" class="nav-item" target="_blank"><i class="fas fa-external-link-alt"></i> Ver sitio</a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="#" class="nav-item" id="btn-logout" style="margin:0"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="topbar">
+        <h1>Destinos</h1>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+          <span class="api-status" id="api-status"><i class="fas fa-circle" style="font-size:0.5rem"></i> Verificando...</span>
+          <button class="btn btn-primary" id="btn-nuevo"><i class="fas fa-plus"></i> Nuevo destino</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body no-pad">
+          <div id="table-wrap"><div class="empty"><i class="fas fa-spinner fa-spin"></i> Cargando...</div></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modal-title">Nuevo destino</h3>
+        <button class="modal-close" id="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="form-destino">
+          <input type="hidden" id="dest-id">
+          <div class="form-group">
+            <label>Nombre *</label>
+            <input type="text" id="dest-nombre" required placeholder="Cancún">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>País *</label>
+              <input type="text" id="dest-pais" required placeholder="México">
+            </div>
+            <div class="form-group">
+              <label>Ciudad / Estado</label>
+              <input type="text" id="dest-ciudad" placeholder="Quintana Roo">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Precio desde (MXN)</label>
+              <input type="number" id="dest-precio" min="0">
+            </div>
+            <div class="form-group">
+              <label>Temporada</label>
+              <input type="text" id="dest-temporada" placeholder="Todo el año">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>URL de imagen</label>
+            <input type="url" id="dest-imagen" placeholder="https://...">
+          </div>
+          <div class="form-group">
+            <label>Descripción</label>
+            <textarea id="dest-desc" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Estado</label>
+            <select id="dest-estado">
+              <option value="activo">Activo</option>
+              <option value="inactivo">Inactivo</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;margin-top:8px;" id="btn-save">
+            <i class="fas fa-save"></i> Guardar en Google Sheets
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/js/api.js"></script>
+  <script>
+    if (!sessionStorage.getItem('sariel_admin')) location.href = 'index.html';
+    document.getElementById('btn-logout').onclick = e => { e.preventDefault(); sessionStorage.removeItem('sariel_admin'); location.href = 'index.html'; };
+
+    const KEY = 'sariel_destinos';
+    let items = [];
+
+    function toast(msg, type) {
+      const t = document.createElement('div');
+      t.className = 'toast' + (type === 'error' ? ' error' : '');
+      t.innerHTML = '<i class="fas fa-' + (type === 'error' ? 'exclamation-circle' : 'check-circle') + '"></i> ' + msg;
+      document.body.appendChild(t);
+      setTimeout(() => t.classList.add('show'), 30);
+      setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3500);
+    }
+    function money(n) {
+      return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 0 }).format(n || 0);
+    }
+    function getLocal() { return JSON.parse(localStorage.getItem(KEY) || '[]'); }
+    function setLocal(a) { localStorage.setItem(KEY, JSON.stringify(a)); }
+
+    async function load() {
+      const status = document.getElementById('api-status');
+      if (API.isConfigured()) {
+        const res = await API.getDestinations('all');
+        if (res.success && Array.isArray(res.data) && res.data.length) {
+          items = res.data;
+          status.className = 'api-status ok';
+          status.innerHTML = '<i class="fas fa-circle" style="font-size:0.5rem"></i> Google Sheets';
+        } else {
+          items = getLocal().length ? getLocal() : FALLBACK.destinos.map(d => ({...d}));
+          status.innerHTML = '<i class="fas fa-circle" style="font-size:0.5rem"></i> Local (API sin datos)';
+        }
+      } else {
+        items = getLocal().length ? getLocal() : FALLBACK.destinos.map(d => ({...d}));
+        setLocal(items);
+        status.innerHTML = '<i class="fas fa-circle" style="font-size:0.5rem"></i> Local — configura API_URL';
+      }
+      render();
+    }
+
+    function render() {
+      const wrap = document.getElementById('table-wrap');
+      if (!items.length) {
+        wrap.innerHTML = '<div class="empty"><i class="fas fa-map-marker-alt"></i>No hay destinos. Crea el primero.</div>';
+        return;
+      }
+      wrap.innerHTML = '<table><thead><tr><th></th><th>Nombre</th><th>País</th><th>Desde</th><th>Temporada</th><th>Estado</th><th>Acciones</th></tr></thead><tbody>' +
+        items.map(d => {
+          const id = d.ID || d.id;
+          return '<tr>' +
+            '<td>' + (d.Imagen || d.imagen ? '<img class="thumb" src="' + (d.Imagen || d.imagen) + '" alt="">' : '') + '</td>' +
+            '<td><strong>' + (d.Nombre || d.nombre || '') + '</strong></td>' +
+            '<td>' + (d.Pais || d.pais || '') + '</td>' +
+            '<td>' + money(d.PrecioDesde || d.precioDesde) + '</td>' +
+            '<td>' + (d.Temporada || d.temporada || '—') + '</td>' +
+            '<td><span class="badge badge-' + (d.Estado || d.estado || 'activo') + '">' + (d.Estado || d.estado || 'activo') + '</span></td>' +
+            '<td class="actions">' +
+              '<button class="btn btn-sm btn-outline" onclick="editItem(\'' + id + '\')"><i class="fas fa-edit"></i></button>' +
+              '<button class="btn btn-sm btn-danger" onclick="deleteItem(\'' + id + '\')"><i class="fas fa-trash"></i></button>' +
+            '</td></tr>';
+        }).join('') + '</tbody></table>';
+    }
+
+    function openModal(item) {
+      document.getElementById('modal-title').textContent = item ? 'Editar destino' : 'Nuevo destino';
+      document.getElementById('dest-id').value = item ? (item.ID || item.id || '') : '';
+      document.getElementById('dest-nombre').value = item ? (item.Nombre || item.nombre || '') : '';
+      document.getElementById('dest-pais').value = item ? (item.Pais || item.pais || '') : '';
+      document.getElementById('dest-ciudad').value = item ? (item.Ciudad || item.ciudad || '') : '';
+      document.getElementById('dest-precio').value = item ? (item.PrecioDesde || item.precioDesde || '') : '';
+      document.getElementById('dest-temporada').value = item ? (item.Temporada || item.temporada || '') : '';
+      document.getElementById('dest-imagen').value = item ? (item.Imagen || item.imagen || '') : '';
+      document.getElementById('dest-desc').value = item ? (item.Descripcion || item.descripcion || '') : '';
+      document.getElementById('dest-estado').value = item ? (item.Estado || item.estado || 'activo') : 'activo';
+      document.getElementById('modal').classList.add('active');
+    }
+
+    function closeModal() { document.getElementById('modal').classList.remove('active'); }
+
+    window.editItem = id => {
+      const item = items.find(d => (d.ID || d.id) == id);
+      if (item) openModal(item);
+    };
+
+    window.deleteItem = async id => {
+      if (!confirm('¿Eliminar este destino?')) return;
+      if (API.isConfigured()) await API.deleteDestination(id);
+      items = items.filter(d => (d.ID || d.id) != id);
+      setLocal(items);
+      render();
+      toast('Destino eliminado');
+    };
+
+    document.getElementById('btn-nuevo').onclick = () => openModal(null);
+    document.getElementById('modal-close').onclick = closeModal;
+    document.getElementById('modal').onclick = e => { if (e.target.id === 'modal') closeModal(); };
+
+    document.getElementById('form-destino').onsubmit = async e => {
+      e.preventDefault();
+      const btn = document.getElementById('btn-save');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
+
+      const data = {
+        id: document.getElementById('dest-id').value || undefined,
+        nombre: document.getElementById('dest-nombre').value,
+        pais: document.getElementById('dest-pais').value,
+        ciudad: document.getElementById('dest-ciudad').value,
+        precioDesde: Number(document.getElementById('dest-precio').value) || 0,
+        temporada: document.getElementById('dest-temporada').value,
+        imagen: document.getElementById('dest-imagen').value,
+        descripcion: document.getElementById('dest-desc').value,
+        estado: document.getElementById('dest-estado').value
+      };
+
+      if (API.isConfigured()) await API.saveDestination(data);
+
+      if (data.id) {
+        const idx = items.findIndex(d => (d.ID || d.id) == data.id);
+        if (idx >= 0) items[idx] = { ...items[idx], ID: data.id, Nombre: data.nombre, Pais: data.pais, Ciudad: data.ciudad, PrecioDesde: data.precioDesde, Temporada: data.temporada, Imagen: data.imagen, Descripcion: data.descripcion, Estado: data.estado };
+      } else {
+        items.push({ ID: Date.now().toString(36), Nombre: data.nombre, Pais: data.pais, Ciudad: data.ciudad, PrecioDesde: data.precioDesde, Temporada: data.temporada, Imagen: data.imagen, Descripcion: data.descripcion, Estado: data.estado });
+      }
+      setLocal(items);
+      render();
+      closeModal();
+      toast('Guardado. Se sincroniza con Google Sheets si la API está activa.');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-save"></i> Guardar en Google Sheets';
+    };
+
+    load();
+  </script>
+</body>
+</html>

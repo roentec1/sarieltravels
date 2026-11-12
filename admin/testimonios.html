@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testimonios | Admin Sariel</title>
+  <link rel="icon" type="image/jpeg" href="../assets/img/logo.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand"><img src="../assets/img/logo.jpg" alt="Logo"><span>Sariel Admin</span></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="promociones.html" class="nav-item"><i class="fas fa-tags"></i> Promociones</a>
+        <a href="destinos.html" class="nav-item"><i class="fas fa-map-marked-alt"></i> Destinos</a>
+        <a href="clientes.html" class="nav-item"><i class="fas fa-users"></i> Clientes / Leads</a>
+        <a href="testimonios.html" class="nav-item active"><i class="fas fa-star"></i> Testimonios</a>
+        <a href="configuracion.html" class="nav-item"><i class="fas fa-cog"></i> Configuración</a>
+        <a href="../index.html" class="nav-item" target="_blank"><i class="fas fa-external-link-alt"></i> Ver sitio</a>
+      </nav>
+      <div class="sidebar-footer"><a href="#" class="nav-item" id="btn-logout" style="margin:0"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></div>
+    </aside>
+    <main class="main-content">
+      <div class="topbar"><h1>Testimonios</h1></div>
+      <div class="card"><div class="card-body">
+        <p style="color:var(--gray);margin-bottom:16px;">Los testimonios se administran desde la hoja <strong>TESTIMONIOS</strong> de Google Sheets. El sitio público los carga automáticamente cuando la API está configurada.</p>
+        <p>Columnas: <code>ID | Nombre | Destino | Comentario | Estrellas | Imagen | Estado</code></p>
+        <p style="margin-top:12px;">Usa Estado = <code>activo</code> para mostrarlos en el sitio.</p>
+      </div></div>
+    </main>
+  </div>
+  <script>
+    if (!sessionStorage.getItem('sariel_admin')) location.href = 'index.html';
+    document.getElementById('btn-logout').onclick = e => { e.preventDefault(); sessionStorage.removeItem('sariel_admin'); location.href = 'index.html'; };
+  </script>
+</body>
+</html>

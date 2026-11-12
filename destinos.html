@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Destinos | Viajes Sariel Travels</title>
+  <meta name="description" content="Viajes Sariel Travels - Destinos, promociones y experiencias de viaje con atención personalizada.">
+  <link rel="icon" type="image/jpeg" href="assets/img/logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-destinos-limit="">
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="index.html" class="logo">
+          <img src="assets/img/logo.jpg" alt="Viajes Sariel Travels">
+          <div class="logo-text">Sariel Travels<span>Creamos viajes reales</span></div>
+        </a>
+                <ul class="nav-menu" id="nav-menu">
+          <li><a href="index.html" class="nav-link">Inicio</a></li>
+          <li><a href="destinos.html" class="nav-link active">Destinos</a></li>
+          <li><a href="promociones.html" class="nav-link">Promociones</a></li>
+          <li><a href="servicios.html" class="nav-link">Servicios</a></li>
+          <li><a href="nosotros.html" class="nav-link">Nosotros</a></li>
+          <li><a href="index.html#testimonios" class="nav-link">Testimonios</a></li>
+          <li><a href="contacto.html" class="nav-link">Contacto</a></li>
+          <li class="nav-mobile-actions">
+            <a href="#" class="nav-whatsapp" data-whatsapp>
+              <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+            <a href="admin/index.html" class="btn-login">
+              <i class="fas fa-user"></i> Iniciar sesión
+            </a>
+          </li>
+        </ul>
+        
+        <div class="nav-actions">
+          <a href="#" class="nav-whatsapp" data-whatsapp>
+            <i class="fab fa-whatsapp"></i> WhatsApp
+          </a>
+          <a href="admin/index.html" class="btn-login">
+            <i class="fas fa-user"></i> Iniciar sesión
+          </a>
+        </div>
+        
+        <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section " id="destinos" style="margin-top: var(--header-height); padding-top: 100px;">
+    <div class="container">
+      <h1 class="section-title">🌎 Destinos</h1>
+      <p class="section-subtitle">Explora todos nuestros destinos nacionales e internacionales.</p>
+      <div class="destinos-grid" id="destinos-grid"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/img/logo.jpg" alt="Viajes Sariel Travels">
+          <p>Creamos viajes reales. Atención personalizada desde Apodaca, Nuevo León.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" data-whatsapp aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-title">Enlaces</h4>
+          <div class="footer-links">
+            <a href="index.html">Inicio</a>
+            <a href="destinos.html">Destinos</a>
+            <a href="promociones.html">Promociones</a>
+            <a href="servicios.html">Servicios</a>
+            <a href="nosotros.html">Nosotros</a>
+            <a href="contacto.html">Contacto</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-title">Legal</h4>
+          <div class="footer-links">
+            <a href="#">Aviso de privacidad</a>
+            <a href="#">Términos y condiciones</a>
+          </div>
+        </div>
+        <div class="footer-contact">
+          <h4 class="footer-title">Contacto</h4>
+          <p><i class="fas fa-map-marker-alt"></i> Apodaca, Nuevo León, México</p>
+          <p><i class="fas fa-phone"></i> +52 1 81 1534 0059</p>
+          <p><i class="fab fa-whatsapp"></i> +52 1 81 1534 0059</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Viajes Sariel Travels. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+  <a href="#" class="whatsapp-float" data-whatsapp aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+  <div class="modal-overlay" id="modal-solicitud">
+    <div class="modal">
+      <div class="modal-header"><h3>Solicitar información</h3><button class="modal-close">&times;</button></div>
+      <div class="modal-body">
+        <form id="form-modal">
+          <input type="hidden" name="promocion" value=""><input type="hidden" name="destino" value="">
+          <div class="form-group"><label>Nombre completo *</label><input type="text" name="nombre" required></div>
+          <div class="form-row">
+            <div class="form-group"><label>Teléfono *</label><input type="tel" name="telefono" required></div>
+            <div class="form-group"><label>WhatsApp</label><input type="tel" name="whatsapp"></div>
+          </div>
+          <div class="form-group"><label>Correo</label><input type="email" name="correo"></div>
+          <div class="form-group"><label>Mensaje</label><textarea name="mensaje" rows="3"></textarea></div>
+          <button type="submit" class="btn btn-primary" style="width:100%"><i class="fas fa-paper-plane"></i> Enviar solicitud</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
